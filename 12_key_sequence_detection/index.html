@@ -6,19 +6,25 @@
   <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
 </head>
 <body>
-  <h1>Enter the secret code to start the magic</h1>
+  <h1>Enter the secret code to start the magic (press ESCAPE to reset)</h1>
 <script>
+  // el código secreto es "arriba abajo izquierda derecha 1 2 3 4"
   let magicCode = '3840373949505152';
+  // secuencia actual
   let currentCode = '';
 
   document.addEventListener('keydown', keyPressEventListener);
 
   function keyPressEventListener(event) {
-    currentCode += event.keyCode;
-    if (magicCode === currentCode) {
-      document.getElementsByTagName('h1')[0].innerHTML = 'ACERTASTE!';
-    } else if (!magicCode.startsWith(currentCode)) { 
-      currentCode = '';
+    if (event.keyCode === 27) {
+      location.reload();     
+    } else {
+      currentCode += event.keyCode;
+      if (currentCode.includes(magicCode)) {
+        cornify_add();
+      } else if (!magicCode.startsWith(currentCode)) { 
+        currentCode = '';
+      }
     }
   }
 </script>
